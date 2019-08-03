@@ -11,6 +11,6 @@ export class AppComponent {
   page: Page;
 
   constructor(){
-    this.page = {title: 'hola', content: 'ooe<b>dddd</b>jssjs'}
+    this.page = {id: '1', title: 'hola', content: 'ooe<b>dddd</b>'}
   }
 }

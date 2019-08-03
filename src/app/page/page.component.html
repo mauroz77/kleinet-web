@@ -1,3 +1,17 @@
 <h2> {{ page.title }} </h2>
 
-<ckeditor [editor]="Editor" data="<p>Hello, <b>ddd</b> world!</p>"></ckeditor>
+<button (click)="toggleDisabled()">
+    {{ isDisabled ? 'Enable edit' : 'Disable edit' }}
+</button>
+
+<ckeditor [editor]="Editor" [data]="page.content" (change)="onChange($event)"
+    [disabled]="isDisabled"></ckeditor>
+
+Content html raw:
+{{ page.content }}
+
+<ng-template [ngIf]="!isDisabled">
+    <div>
+        <button (click)="save()">Save</button>
+    </div>
+</ng-template>
