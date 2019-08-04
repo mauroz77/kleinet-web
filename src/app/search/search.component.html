@@ -1,5 +1,9 @@
 <div class="example-container">
     <mat-form-field>
-        <input matInput placeholder="Search" (keyup.enter)="search($event)" >
+        <input matInput placeholder="Search" (keyup.enter)="search($event)">
     </mat-form-field>
 </div>
+
+<ng-template ngFor let-result [ngForOf]="searchResults">
+    <app-search-result [searchResult]="result"></app-search-result>
+</ng-template>
