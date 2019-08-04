@@ -4,6 +4,11 @@
     </mat-form-field>
 </div>
 
+<div *ngIf="currentSearch">
+    Results for {{ currentSearch }}:
+</div>
+
+
 <ng-template ngFor let-result [ngForOf]="searchResults">
     <app-search-result [searchResult]="result"></app-search-result>
 </ng-template>

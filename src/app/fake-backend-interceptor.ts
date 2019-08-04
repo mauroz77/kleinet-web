@@ -6,6 +6,14 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
+let pages = [
+    { id: '1', title: 'title A', content: 'This is my content 1'},
+    { id: '2', title: 'title B', content: 'This is my content 2'},
+    { id: '3', title: 'title C', content: 'This is my content 3'},
+    { id: '4', title: 'title D', content: 'This is my content 4'},
+    { id: '5', title: 'title E', content: 'This is my content 5'}
+];
+
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>  {
@@ -32,6 +40,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return deleteUser();
                 case url.includes('/search') && method === 'GET':
                     return getSearchResults();
+                case url.includes('/page') && method === 'GET':
+                    return getPage();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -89,13 +99,29 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function getSearchResults() {
             let results = [
-                {noteBooks: [], id: '1', link: 'www.hola.com', summary: 'summary'},
-                {noteBooks: [], id: '1', link: 'www.hola.com', summary: 'summary'},
-                {noteBooks: [], id: '1', link: 'www.hola.com', summary: 'summary'},
-                {noteBooks: [], id: '1', link: 'www.hola.com', summary: 'summary'},
-                {noteBooks: [], id: '1', link: 'www.hola.com', summary: 'summary'}
+                {
+                    noteBooks: ['Biology', 'Maths'],
+                    id: '1',
+                    title: 'Title A',
+                    keyWords: ['keyword1', 'keyWord2'],
+                    link: 'www.hola.com',
+                    summary: 'summary'
+                },
+                {noteBooks: ['No Class'], id: '1', title: 'Ttile B',  link: 'www.hola.com', summary: 'summary'},
+                {noteBooks: ['General'], id: '1', title: 'Ttile C',  link: 'www.hola.com', summary: 'summary'},
+                {noteBooks: [], id: '1', title: 'Ttile D',  link: 'www.hola.com', summary: 'summary'},
+                {noteBooks: [], id: '1', title: 'Ttile E',  link: 'www.hola.com', summary: 'summary'}
             ];
             return ok(results);
+        }
+
+        function getPage() {
+            console.log(url, method, headers, body);
+
+            const page = pages.find(x => x.id == idFromUrl().toString());
+            console.log('found page', page);
+            
+            return ok(page);
         }
 
         // helper functions

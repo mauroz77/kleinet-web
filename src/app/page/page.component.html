@@ -4,8 +4,7 @@
     {{ isDisabled ? 'Enable edit' : 'Disable edit' }}
 </button>
 
-<ckeditor [editor]="Editor" [data]="page.content" (change)="onChange($event)"
-    [disabled]="isDisabled"></ckeditor>
+<ckeditor [disabled]="isDisabled" [(ngModel)]="page.content" [editor]="Editor"></ckeditor>
 
 Content html raw:
 {{ page.content }}

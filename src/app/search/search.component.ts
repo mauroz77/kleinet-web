@@ -10,6 +10,7 @@ import { SearchResult } from '../model/search-result';
 export class SearchComponent implements OnInit {
 
   private searchResults: SearchResult[];
+  private currentSearch: string;
 
   constructor(private searchService: SearchService) { }
 
@@ -18,6 +19,7 @@ export class SearchComponent implements OnInit {
 
   search(e) {
     console.log('Searching...', e.target.value);
+    this.currentSearch = e.target.value;
     this.searchService.getResults().subscribe(
       data => {
         console.log(data);
